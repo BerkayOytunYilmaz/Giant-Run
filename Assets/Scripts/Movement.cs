@@ -18,17 +18,13 @@ public class Movement : MonoBehaviour
     public Animator EnemyAnimator;
     public float PlayerScale;
     public Text Skor;
-    public GameObject Fireworks;
-    public AudioSource BackSound;
-    public AudioSource FinalSound;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         Stop = false;
         PlayerScale = 1f;
-        BackSound = GetComponent<AudioSource>();
-        FinalSound.Stop();
     }
 
     // Update is called once per frame
@@ -128,7 +124,6 @@ public class Movement : MonoBehaviour
         if (other.gameObject.tag == "Final")
         {
             Stop = true;
-
             PlayerAnimator.SetBool("Fight", true);
             EnemyAnimator.SetBool("EnemyFight", true);
 
@@ -137,7 +132,6 @@ public class Movement : MonoBehaviour
             if (PlayerScale>1.25f)
             {
                 StartCoroutine("AnimatorCoroutine");
-
             }
             else
             {
@@ -153,16 +147,11 @@ public class Movement : MonoBehaviour
         
         yield return new WaitForSeconds(3);
         EnemyAnimator.SetBool("EnemyDead", true);
-        Fireworks.SetActive(true);
-        BackSound.Stop();
-        FinalSound.Play();
-
     }
     IEnumerator EnemyAnimatorCoroutine()
     {
 
         yield return new WaitForSeconds(3);
         PlayerAnimator.SetBool("Death", true);
-        BackSound.Stop();
     }
 }
